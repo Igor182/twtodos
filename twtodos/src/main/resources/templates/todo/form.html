@@ -36,7 +36,7 @@
 
 
     <form method="POST" th:object="${todo}">
-        <input type="hidden" th:field="{id}">
+        <input type="hidden" th:field="*{id}">
         <div class="mb-3">
             <label for="title" class="form-label">Título</label>
             <input type="text" class="form-control" id="title" th:field="*{title}">
