@@ -1,6 +1,11 @@
 package br.com.training.twtodos.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.springframework.cglib.core.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -14,9 +19,13 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Size(min = 3, max = 100)
     @Column(length = 100, nullable = false)
     private String title;
 
+    @NotNull
+    @FutureOrPresent
     @Column(nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDateTime createdAt;
@@ -29,6 +38,10 @@ public class Todo {
 
     public Todo() {
         this.createdAt = LocalDateTime.now();
+    }
+
+    public void markHasFinished() {
+        this.fineshedAt = LocalDate.now();
     }
 
     public Long getId() {
